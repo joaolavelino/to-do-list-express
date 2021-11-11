@@ -1,0 +1,32 @@
+passo a passo -
+1) no terminal NPM INIT - para criar o package.json - preencher os dados
+2) no terminal GIT INIT - para criar um repositorio local GIT
+3) criar um repositório Remoto no github
+4) de volta no terminal GIT REMOTE ADD ORIGIN (endereço do github)
+5)instalar o express npm install express --save
+6) criar o app.js 
+-----instruções dentro do arquivo - nos comentários----
+criar a requisição get
+criar o listen pra definir porta
+------
+7) instalar o nodemon - ele monitora os arquivos e reinicia o servidor quando houver alterações no servidor npm isntall nodemon --save-dev (save dev diz que essa ferramenta será usada apenas no ambiente de desenvolvimento, não quando o servidor estiver no ar)
+8) iniciar o servidor usando o nodemon - npx nodemon (ele ficara observando alteraçoes)
+9) no package.json, eu posso colocar dentro de scripts o "dev":"nodemon"
+    fazendo assim, no terminal eu posso digitar npm run dev, que ele inicia o nodemon
+
+------
+10) instalar o Postman - ferramenta para testar o backend - faz chamadas web
+11) com o servidor rodando (npm run dev - ou - npx nodemon):
+    a) abre o Postman
+    b) My workspace > collections > + > create new collection - ou seja , um grupo de endpoints para testar
+    c) Criar um HTTP request - e salvar dentro da collection - pode criar quantos quiser
+
+------
+MIDDLEWARES são etapas no processamento de uma requisição. Cada um vai analisar se pode responder algo em relação à request e então passa pro próximo
+
+para chamar os middlewares, é preciso usar o método 'use' do express (como colocamos o express dentro da variável 'app', chamaremos da seguinte forma: app.use(express.json()) - ele analisa se há um json dentro da requisição e vai processar esse json e depois disponibilizá-lo no req.body - o corpo da requisição )
+
+
+------ ORGANIZAR A NOSSA APLICAÇÃO ------
+ - criar uma pasta SRC e nela uma pasta routes...
+ - dentro da pasta routes, colocar o arquivo checklist

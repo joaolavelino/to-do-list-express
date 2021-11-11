@@ -1,0 +1,24 @@
+Mongoose é uma plataforma adaptadora que faz a ligação entre o MongoDb e o node.js - 
+
+- para instalá-lo no projeto é só rodar o "npm install mongoose --save"
+- criar um arquivo "database.js" dentro de uma pasta "config" - na raíz do projeto.
+    esse vai ser o arquivo de configuração do mongoose
+
+-no arquivo>
+1) fazer as chamadas do mongoose
+2) conectar com o MongoDb (se eu tiver com o database online - eu mudo a url)
+
+-no app.js - requerer o arquivo database.js -> require('./config/database')
+
+-- criar os models -- que são as bases para os Collections
+    pasta: ./src/models...
+     - criei um model para os checklists
+     - um model para as tasks
+     nelas existem os padrões para cada um dos tipos de coleções
+     e as referências que vão ter que fazer
+     -----VER NOS ARQUIVOS COMO FAZER-----
+
+Como juntar tudo - usar o mongoose para receber requests (usando o POSTMAN)
+
+1) DENTRO DO ARQUIVO DA ROTA - ./src/routes/checklist.js    
+    importar o MODEL ( o template da collection)

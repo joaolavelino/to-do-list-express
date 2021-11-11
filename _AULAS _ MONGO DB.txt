@@ -1,0 +1,66 @@
+Para usar o mongo DB
+Baixar o mongoDb e o Mongosh no site oficial
+
+MongoDB - COMMUNITY SERVER - https://www.mongodb.com/try/download/community?tck=docs_server
+MONGOSH - https://www.mongodb.com/try/download/shell?jmp=docs
+
+páginas de documentação - como isntalar e tal
+
+- Tudo instalado:
+na pasta do projeto - no terminal - 
+MONGOSH - para iniciar o mongo - o comando que o professor passou era mongo, mas estava escrito que nas  versões atuais era pra ser usado é o MONGOSH - que abre o mongo shell, aparentemente está certo
+
+-------WORKFLOW-------
+
+- comando SHOW DBS - mostra os bancos de dados abertos
+
+- USE <nome do banco de dado> - usa um dos bancos mostrados, ou, se não houver um com esse nome, voce vai criar um banco novo - ele será exibido no SHOW DBS assim que tiver alguma coleção
+
+-db.createCollection('nome da coleção') - se usar o show dbs - vai aparecer o novo banco de dados criado
+
+- show collections - mostra as collections dentro do banco de dados
+
+---- manipular a collection----
+
+-db.<nome da collection>.insert() - insere algo na collection - no caso estamos colocando um objeto vazio ({})
+-pode ser usado : db.<collection>.save(...)
+
+-db.<nome da collection>.find() - mostra o que tem na collection
+    eu posso colocar o id - no caso toda a expressão 'ObjectId("numero")' - e ele vai trazer apenas esse item da collection
+    eu posso colar outros parametros, como o "name" - ...find({name: 'primeira lista'})
+
+-db.<collection>.update() - para atualizar os dados  - eu preciso nessa chamada, colocar um identificador de qual item eu vou mudar - e depois como segundo argumento, eu coloco a alteração
+    - só que ele reescreve tudo, não apenas o que foi pedido... meio burrão pra isso.. porém deu pra sacar porque ele faz isso - vou aparentemente passar os objetos todos completos toda vez que fizer um update.
+
+-db.<collection>.deleteOne() - apaga o elemento selecionado
+    ex.: db.checklist.deleteOne({name:"Primeiro Checklist"})
+
+-db.<collection>.drop() - apaga tudo da collection
+
+------- uma collection é como se fosse uma tabela de um banco de dados ------
+
+
+********** MANIPULANDO DADOS NO DB ************
+- Como juntar dados de uma collection com outra
+ - para testar criei uma segunda collection - task
+ - criei um item na collection de checklist - 'tarefas da manhã'
+ - criei algumas tarefas na collection task - só que nessas tarefas eu coloquei o id de 'tarefas da manhã' ->  {"name" : "mamadeira do franz", "done" : true, "checklistId" : ObjectId("6175a5917183e8507e29868a") } em todas elas tem esse 'checklistId
+
+  - agora usa o método aggregate - nele usamos operadores para refinar a busca dos itens a serem agregados - no caso o $lookup: {}
+    - fica assim -> db.checklist.aggregate({$lookup:{from:"task", localField:"_id", foreignField:"checklistId", as: "tasks"}})
+    - se eu quiser algo minimamente legível, colocar .pretty() no final
+
+
+--outros operadores--
+
+%and: + array de condições - ele vai buscar os itens que dão match em todas as condições da lista
+    ex: db.task.find($and:[{name:'...'}, {done:true}]) - os atributos são passados como objetos js
+
+%or: + array de condições - da mesma forma ele refina a busca, mas pelo menos uma das condições da lista precisam ser atendidas
+
+%exists: - esse tem uma sintaxe diferente - eu declaro uma chave e procuro os objetos em que essa chave exista - primeiro eu declaro a chave (sempre como um objeto) e depois coloco um objeto como valor dessa chave, dentro dele vai ter o $exists: como chave de um boolean - então eu pergunto se essa primeira chave existe ou não.
+    ex. db.task.find({checklistId: {$exists: true }}) - vai buscar os objetos dessa task que tiverem 'checklistId' como uma das chaves. - se eu coloco false, ele procura os que NÃO tiverem a chave
+
+documentação com todos os operadores - https://docs.mongodb.com/manual/reference/operator/
+
+

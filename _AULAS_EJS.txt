@@ -1,0 +1,47 @@
+EJS _ ENGINE QUE VAI TRABALHAR NA GERAÇÃO DE VISUALIZAÇÃO DOS DADOS
+
+1 INSTALAR O EJS - npm i ejs --save
+
+2 CHAMAR NO APP.JS o PATH (vai dizer onde as views vao ficar)
+
+3 Definir qual pasta estão as views : 
+    >>>app.set('views', path.join(__dirname, 'src/views'))
+
+4 Dizer qual é a engine que vai trabalhar as views = 
+    >>>app.set('view engine', 'ejs')
+
+5 Fazer uma rota para essa view.. 
+    na rota get, usamos o método render sobre a resposta... como definimos o path no app.js, precisamos apenas colocar o caminho dali em diante:
+    >>>res.render('pages/index')
+
+6 Importr a rota pro app.js - como uma rota de collection mesmo
+
+7 Criar as pastas para fazer o front end
+    - Pasta public para colocar os arquivos estáticos
+    - Pasta views pra colocar o EJS
+
+8 Habilitar a leitura de arquivos estáticos no APP.JS - isso permite ler arquivos como CSS
+ - no caso vamos colocar o Bulma pra facilitar - só jogar o arquivo na pasta public/stylesheets/
+ >>> app.use(express.static(path.join(__dirname, 'public')))
+
+
+9 Criar as páginas na pasta views/pages/  -
+
+10 as partes que se repetem podem ser colocadas como partial.. ver no arquivo...
+
+-----EJS-----
+<% injetar outras coisas.. js talvez %>
+<%- injetar uma partial %>
+<%= passar uma variavel %> - eu posso colocar uma variável no arquivo principal e colocar essa variável na partial... ver no arquivo ex. do title
+
+11 - Preparar as páginas e colocar no endereço que colocamos no .path
+
+12 - Nos arquivos de rotas eu preciso pedir pra que cada rota devolva uma VIEW - 
+    então na resposta da requisição eu troco o .json por .render(...endereço da view...)
+    >>>res.status(200).render('checklists/index', {checklists: checklists}) - no caso da lista de checklists
+    >>>res.status(200).render('checklists/show', {checklist: checklist}) - no caso de cada uma lista
+
+13 - podemos injetar lógica nos EJS... pra que a gente consiga fazer loops, etc - seguindo a sintaxe que ja vimos
+
+
+------- COLOCAR ROTA POST -------
